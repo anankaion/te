@@ -13,9 +13,9 @@ void print_file(std::list<std::string>& file_contents){
     int line_count = 0;
 
     for (it = file_contents.begin(); it != file_contents.end(); it++) {
-        line_count++;
-
         std::cout << line_count << " " << *it << "\n";
+
+        line_count++;
     }
 }
 
@@ -37,7 +37,7 @@ void add(std::string& string, int& pos, std::list<std::string>& file_contents){
 void rm(int& pos, std::list<std::string>& file_contents){
     std::list<std::string>::iterator it = file_contents.begin();
 
-    for (int i = 0; i < pos-1; i++) {
+    for (int i = 0; i < pos; i++) {
         it++;
     }
 
