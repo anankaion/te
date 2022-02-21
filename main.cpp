@@ -4,6 +4,7 @@
 #include <list>
 #include <string>
 #include <vector>
+#include <regex>
 
 #include "split_string.h"
 #include "read_write_file.h"
@@ -21,7 +22,7 @@ void print_file(std::list<std::string>& file_contents){
     }
 }
 
-void add(std::string& string, int& pos, std::list<std::string>& file_contents){
+void add(std::string string, int& pos, std::list<std::string>& file_contents){
     std::list<std::string>::iterator it = file_contents.begin();
 
     for (int i = 0; i < pos; i++) {
@@ -72,7 +73,7 @@ void parse_instruction(std::string& instruction, int &pos, std::list<std::string
         parts = split_string(instruction, ' ');
 
         if (parts.at(0) == "add") {
-            add(parts[1], pos, file_contents);
+            add(instruction.substr(4), pos, file_contents);
         } else if (parts.at(0) == "set") {
             pos = stoi(parts.at(1));
         } else if (parts.at(0) == "load") {
