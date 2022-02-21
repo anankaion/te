@@ -8,6 +8,8 @@
 #include "split_string.h"
 #include "read_write_file.h"
 
+void parse_instruction(std::string& instruction, int &pos, std::list<std::string>& file_contents);
+
 void print_file(std::list<std::string>& file_contents){
     std::list<std::string>::iterator it;
     int line_count = 0;
@@ -45,6 +47,15 @@ void rm(int& pos, std::list<std::string>& file_contents){
     pos--;
 }
 
+void process_instructions(std::string& filename, int& pos, std::list<std::string>& file_contents){
+    std::list<std::string> instructions = read_file(filename);
+    std::list<std::string>::iterator it;
+
+    for (it = instructions.begin(); it != instructions.end(); it++) {
+        parse_instruction(*it, pos, file_contents);
+    }
+}
+
 void parse_instruction(std::string& instruction, int &pos, std::list<std::string>& file_contents){
     std::vector<std::string> parts;
 
@@ -68,6 +79,8 @@ void parse_instruction(std::string& instruction, int &pos, std::list<std::string
             file_contents = read_file(parts.at(1));
         } else if (parts.at(0) == "write") {
             write_file(parts.at(1), file_contents);
+        } else if (parts.at(0) == "instructions") {
+            process_instructions(parts.at(1), pos, file_contents);
         }
     }
 }
